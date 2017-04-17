@@ -16,10 +16,15 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 RUN apt-get install -y \
     openssh-server \
-    php7.1 \
     nodejs \
     git \
-    nmap
+    nmap \
+    php7.0 \
+    php7.0-curl \
+    php7.0-intl \
+    php7.0-gd \
+    php7.0-mbstring \
+    php7.0-xml
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN npm install -g yarn
