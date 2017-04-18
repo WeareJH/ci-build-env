@@ -11,7 +11,7 @@ RUN apt-get update && \
     language-pack-en-base \
     curl \
     git \
-    nmap \
+    knockd \
     openssh-server
 
 RUN add-apt-repository ppa:ondrej/php && apt-get update
