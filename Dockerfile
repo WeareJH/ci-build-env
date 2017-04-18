@@ -1,10 +1,6 @@
 FROM ubuntu:17.04
 MAINTAINER Michael Woodward <michael@wearejh.com>
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV LC_ALL=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-
 RUN apt-get update && \
     apt-get install -y \
     software-properties-common \
@@ -14,7 +10,7 @@ RUN apt-get update && \
     knockd \
     openssh-server
 
-RUN add-apt-repository ppa:ondrej/php && apt-get update
+RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 RUN apt-get install -y \
