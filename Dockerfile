@@ -2,7 +2,8 @@ FROM ubuntu:17.04
 MAINTAINER Michael Woodward <michael@wearejh.com>
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
+    apt-utils \
     software-properties-common \
     language-pack-en-base \
     curl \
