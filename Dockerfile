@@ -9,7 +9,8 @@ RUN apt-get update && \
     curl \
     git \
     knockd \
-    openssh-server
+    openssh-server \
+    mysql-client
 
 RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
