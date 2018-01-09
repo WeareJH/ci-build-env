@@ -13,7 +13,7 @@ RUN apt-get update && \
     mysql-client
 
 RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 RUN apt-get install -y \
     nodejs \
@@ -27,10 +27,11 @@ RUN apt-get install -y \
     php7.0-bcmath \
     php7.0-zip \
     php7.0-pdo \
-    php7.0-pdo-mysql
+    php7.0-pdo-mysql \
+    php7.0-soap
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN npm install -g yarn
+RUN npm install -g yarn m2-builder@1
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
