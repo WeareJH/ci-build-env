@@ -11,7 +11,8 @@ RUN apt-get update && \
     knockd \
     openssh-server \
     mysql-client \
-    patch
+    patch \
+    rsync
 
 RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
