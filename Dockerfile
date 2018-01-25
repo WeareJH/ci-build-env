@@ -45,3 +45,6 @@ RUN mkdir -p /root/build
 WORKDIR /root/build
 
 ENV PATH=/root/.composer/vendor/bin:$PATH
+
+RUN mkdir $HOME/.ssh
+COPY ./ssh/config /root/.ssh
