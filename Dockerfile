@@ -34,7 +34,6 @@ RUN docker-php-ext-install \
     pcntl
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN export PATH=$PATH:$HOME/.composer/vendor/bin
 
 RUN composer global require deployer/deployer && \
     composer global require deployer/recipes
@@ -44,3 +43,5 @@ RUN npm install -g yarn m2-builder@1
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
+
+ENV PATH=/root/.composer/vendor/bin:$PATH
