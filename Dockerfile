@@ -36,7 +36,7 @@ RUN docker-php-ext-install \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN composer global require deployer/deployer && \
-    composer global require deployer/recipes
+    composer global require wearejh/m2-deploy-recipe:dev-feature/rewrite
 
 RUN apk add nodejs
 RUN npm install -g yarn m2-builder@1
