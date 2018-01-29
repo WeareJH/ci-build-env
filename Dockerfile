@@ -49,4 +49,5 @@ WORKDIR /root/build
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN mkdir $HOME/.ssh
-COPY ./ssh/config /root/.ssh
+COPY ./config/ssh/config /root/.ssh
+COPY ./config/php.ini /usr/local/etc/php/conf.d/php-custom.ini
