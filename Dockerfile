@@ -35,6 +35,8 @@ RUN docker-php-ext-install \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 
+RUN echo s
+
 RUN composer global require \
     deployer/deployer:^6.0 \
     deployer/recipes:^6.0 \
@@ -49,5 +51,4 @@ WORKDIR /root/build
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN mkdir $HOME/.ssh
-COPY ./config/ssh/config /root/.ssh
 COPY ./config/php.ini /usr/local/etc/php/conf.d/php-custom.ini
