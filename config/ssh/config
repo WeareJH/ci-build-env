@@ -1,5 +1,0 @@
-Host *
-ControlMaster auto
-ControlPath /dev/shm/control:%h:%p:%r
-ControlPersist 600
-StrictHostKeyChecking no
