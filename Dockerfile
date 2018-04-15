@@ -30,7 +30,8 @@ RUN apt-get install -y \
     php7.0-zip \
     php7.0-pdo \
     php7.0-pdo-mysql \
-    php7.0-soap
+    php7.0-soap \
+    php-ast
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN npm install -g yarn m2-builder@1
