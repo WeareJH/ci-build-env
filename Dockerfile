@@ -33,9 +33,9 @@ RUN docker-php-ext-install \
     opcache \
     pcntl
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer global require wearejh/m2-deploy-recipe:dev-feature/rewrite
+RUN composer global require wearejh/m2-deploy-recipe:dev-feature/akoova
 
 RUN apk add nodejs
 RUN npm install -g yarn m2-builder@1
