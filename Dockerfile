@@ -1,4 +1,4 @@
-FROM php:7.0-cli-alpine
+FROM php:7.1-cli-alpine
 MAINTAINER Michael Woodward <michael@wearejh.com>
 
 RUN apk --update add \
