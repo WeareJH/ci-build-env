@@ -1,4 +1,4 @@
-FROM php:{{VERSION}}-cli-alpine
+FROM php:5.6-cli-alpine
 MAINTAINER JH <hello@wearejh.com>
 
 RUN apk --update add \
@@ -37,11 +37,6 @@ RUN docker-php-ext-install \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 ENV PATH=/root/.composer/vendor/bin:$PATH
-
-RUN composer global require wearejh/m2-deploy-recipe:dev-master
-
-RUN apk add nodejs
-RUN npm install -g yarn m2-builder@1
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
