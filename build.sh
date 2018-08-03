@@ -28,5 +28,5 @@ fi
 
 # PHP 7.x share a common Dockerfile
 # Set the required version in the Dockerfile
-sed -ie \"s/{{VERSION}}/${PHPVER}/g\" Dockerfile
+sed -i -e "s/{{VERSION}}/${PHPVER}/g" Dockerfile
 docker build --no-cache -f Dockerfile -t ${REPO}:${PHPVER} ${HERE}
