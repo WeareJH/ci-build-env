@@ -1,4 +1,4 @@
-<h1 align="center">Magento 2 Docker CI Build Environment</h1>
+<h1 align="center">Magento Docker CI Build Environments</h1>
 
 <p align="center">
     <a href="https://hub.docker.com/r/wearejh/ci-build-env/builds/" title="Stars" target="_blank">
@@ -17,4 +17,20 @@
 
 ---
 
-- [ ] TODO: Writup full README.md
+Docker images for CI build environments. Supported PHP versions are `5.6`, `7.0`, `7.1` and `7.2`
+
+## Pull / Run
+
+```
+# Replace {VERSION} witht the PHP version required
+docker pull wearejh/ci-build-env:{VERSION}
+docker run --rm -it wearejh/ci-build-env:{VERSION} sh
+```
+
+## Building
+
+```
+# Replace {VERSION} with the required PHP version to build
+./build.sh {VERSION}
+```
+
