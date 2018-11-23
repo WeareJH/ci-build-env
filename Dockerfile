@@ -42,7 +42,7 @@ ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
 
-RUN apk add nodejs
+RUN apk add nodejs npm
 RUN npm install -g yarn m2-builder@1
 
 RUN mkdir -p /root/build
