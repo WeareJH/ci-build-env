@@ -23,6 +23,8 @@ RUN apk --update add \
     ruby \
     ruby-bundler
 
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
+
 RUN docker-php-ext-install \
     gd \
     intl \
