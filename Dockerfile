@@ -11,8 +11,8 @@ RUN apk --update add \
     rsync \
     libpng \
     libpng-dev \
-    libjpeg \
-    libjpeg-dev \
+    jpeg \
+    jpeg-dev \
     g++ \
     icu \
     icu-dev \
