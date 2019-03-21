@@ -21,6 +21,7 @@ RUN apk --update add \
     libstdc++ \
     libgcc \
     ruby \
+    ruby-json \
     ruby-bundler
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
