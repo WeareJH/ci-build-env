@@ -1,4 +1,4 @@
-FROM php:7.2-cli-alpine
+FROM php:{{VERSION}}-cli-alpine
 MAINTAINER JH <hello@wearejh.com>
 
 RUN apk --update add \
