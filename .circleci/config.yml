@@ -50,3 +50,9 @@ workflows:
                     branches:
                         only:
                             - master
+
+            - build-7.1:
+                  filters:
+                      branches:
+                          only:
+                              - master
