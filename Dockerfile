@@ -1,4 +1,4 @@
-FROM php:{{VERSION}}-cli-alpine
+FROM php:7.2-cli-alpine
 MAINTAINER JH <hello@wearejh.com>
 
 RUN apk --update add \
@@ -22,7 +22,8 @@ RUN apk --update add \
     libgcc \
     ruby \
     ruby-json \
-    ruby-bundler
+    ruby-bundler \
+    libsodium-dev
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
 
@@ -30,7 +31,6 @@ RUN docker-php-ext-install \
     gd \
     intl \
     mbstring \
-    mcrypt \
     pdo_mysql \
     xsl \
     zip \
@@ -39,6 +39,16 @@ RUN docker-php-ext-install \
     mysqli \
     opcache \
     pcntl
+
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 72 ] \
+    && docker-php-ext-install \
+        mcrypt \
+    ; true
+
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
+    && docker-php-ext-install \
+        sodium \
+    ; true
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 ENV PATH=/root/.composer/vendor/bin:$PATH
