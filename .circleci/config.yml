@@ -5,8 +5,8 @@ jobs:
         machine: true
         steps:
             - checkout
-            - run: ./build.sh 7.1
-            - run: ./publish.sh 7.1
+            - run: ./build.sh 7.2
+            - run: ./publish.sh 7.2
 
     build-5.6:
         machine: true
@@ -21,6 +21,13 @@ jobs:
             - checkout
             - run: ./build.sh 7.0
             - run: ./publish.sh 7.0
+
+    build-7.1:
+        machine: true
+        steps:
+            - checkout
+            - run: ./build.sh 7.1
+            - run: ./publish.sh 7.1
 
 workflows:
     version: 2
