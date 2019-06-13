@@ -16,7 +16,7 @@ if [[ ! " ${SUPPORTED[@]} " =~ " ${PHPVER} " ]]; then
     exit
 fi
 
-docker tag $REPO:$PHPVER
+docker tag $REPO:$PHPVER $REPO:$PHPVER
 
 # Compare image to current before push
 LAYER_DIFF=$(diff <(docker inspect $REPO:$PHPVER | jq '.[0].RootFS.Layers') <(docker inspect $REPO:$PHPVER-current | jq '.[0].RootFS.Layers'))
