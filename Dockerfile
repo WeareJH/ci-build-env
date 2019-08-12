@@ -23,7 +23,10 @@ RUN apk --update add \
     ruby \
     ruby-json \
     ruby-bundler \
-    libsodium-dev
+    libsodium-dev \
+    nodejs \
+    npm \
+    yarn
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
 
@@ -50,14 +53,11 @@ RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
         sodium \
     ; true
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
 
-COPY --from=node:8.16.0-alpine /usr/local/bin/node /usr/local/bin/node 
-
-RUN apk add yarn
 RUN yarn global add m2-builder@1
 
 RUN mkdir -p /root/build
