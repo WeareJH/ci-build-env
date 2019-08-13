@@ -25,8 +25,9 @@ RUN apk --update add \
     ruby-bundler \
     libsodium-dev \
     nodejs \
-    npm \
     yarn
+
+RUN apk add npm --repository http://dl-cdn.alpinelinux.org/alpine/v3.10/main
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
 
