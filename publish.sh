@@ -5,6 +5,7 @@ HERE=$(dirname $0)
 PHPVER=${1}
 REPO=wearejh/ci-build-env
 SUPPORTED=(5.6 7.0 7.1 7.2)
+IMAGEVER=$(date '+%Y%m%d%H%M')
 
 if [ ${#PHPVER} -lt 1 ]; then
     echo "build.sh php-version"
@@ -16,7 +17,7 @@ if [[ ! " ${SUPPORTED[@]} " =~ " ${PHPVER} " ]]; then
     exit
 fi
 
-docker tag $REPO:$PHPVER $REPO:$PHPVER
+docker tag $REPO:$PHPVER $REPO:$PHPVER-$IMAGEVER
 
 # Compare image to current before push
 LAYER_DIFF=$(diff <(docker inspect $REPO:$PHPVER | jq '.[0].RootFS.Layers') <(docker inspect $REPO:$PHPVER-current | jq '.[0].RootFS.Layers'))
@@ -28,3 +29,4 @@ fi
 
 docker login -u $DOCKER_USER -p $DOCKER_PASS
 docker push $REPO:$PHPVER
+docker push $REPO:$PHPVER-$IMAGEVER
