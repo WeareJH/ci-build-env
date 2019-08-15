@@ -58,7 +58,7 @@ ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
 
-RUN yarn global add m2-builder@1
+RUN yarn global add m2-builder@4
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
