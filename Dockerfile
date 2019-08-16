@@ -41,7 +41,8 @@ RUN docker-php-ext-install \
     bcmath \
     mysqli \
     opcache \
-    pcntl
+    pcntl \
+    sockets
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 72 ] \
     && docker-php-ext-install \
