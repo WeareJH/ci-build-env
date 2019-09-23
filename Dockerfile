@@ -11,6 +11,7 @@ RUN apk --update add \
     rsync \
     libpng \
     libpng-dev \
+    freetype-dev \
     jpeg \
     jpeg-dev \
     g++ \
@@ -28,7 +29,7 @@ RUN apk --update add \
     npm \
     yarn
 
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 RUN docker-php-ext-install \
     gd \
