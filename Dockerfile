@@ -21,6 +21,7 @@ RUN apk --update add \
     libxslt-dev \
     libstdc++ \
     libgcc \
+    libzip-dev \
     ruby \
     ruby-json \
     ruby-bundler \
@@ -30,6 +31,7 @@ RUN apk --update add \
     yarn
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
+RUN docker-php-ext-configure zip --with-libzip=/usr/include/
 
 RUN docker-php-ext-install \
     gd \
