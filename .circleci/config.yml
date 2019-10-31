@@ -5,6 +5,13 @@ jobs:
         machine: true
         steps:
             - checkout
+            - run: ./build.sh 7.3
+            - run: ./publish.sh 7.3
+
+    build-7.2:
+        machine: true
+        steps:
+            - checkout
             - run: ./build.sh 7.2
             - run: ./publish.sh 7.2
 

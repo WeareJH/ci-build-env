@@ -17,7 +17,7 @@
 
 ---
 
-Docker images for CI build environments. Supported PHP versions are `5.6`, `7.0`, `7.1` and `7.2`
+Docker images for CI build environments. Supported PHP versions are `7.1`, `7.2`  and `7.3`
 
 ## Pull / Run
 
