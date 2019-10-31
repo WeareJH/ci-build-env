@@ -33,6 +33,11 @@ workflows:
                         only:
                             - master
 
+            - build-7.2:
+                  filters:
+                      branches:
+                          only:
+                              - master
             - build-7.1:
                   filters:
                       branches:
