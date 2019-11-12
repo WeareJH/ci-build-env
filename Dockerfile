@@ -28,7 +28,8 @@ RUN apk --update add \
     libsodium-dev \
     nodejs \
     npm \
-    yarn
+    yarn \
+    procps
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 RUN docker-php-ext-configure zip --with-libzip=/usr/include/
