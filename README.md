@@ -22,7 +22,7 @@ Docker images for CI build environments. Supported PHP versions are `7.1`, `7.2`
 ## Pull / Run
 
 ```
-# Replace {VERSION} witht the PHP version required
+# Replace {VERSION} with the PHP version required
 docker pull wearejh/ci-build-env:{VERSION}
 docker run --rm -it wearejh/ci-build-env:{VERSION} sh
 ```
