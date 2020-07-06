@@ -29,7 +29,8 @@ RUN apk --update add \
     nodejs \
     npm \
     yarn \
-    procps
+    procps \
+    perl-utils
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 RUN docker-php-ext-configure zip --with-libzip=/usr/include/
