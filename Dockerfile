@@ -63,6 +63,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
+RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
+RUN composer global require wearejh/ci-tool:dev-master
 
 RUN yarn global add m2-builder@4
 
