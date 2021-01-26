@@ -32,8 +32,15 @@ RUN apk --update add \
     procps \
     perl-utils
 
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-configure zip --with-libzip=/usr/include/
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
+    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
+    && docker-php-ext-configure zip --with-libzip=/usr/include/ \
+    ; true
+
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
+    && docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
+    && docker-php-ext-configure zip \
+    ; true
 
 RUN docker-php-ext-install \
     gd \
