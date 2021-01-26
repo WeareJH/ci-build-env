@@ -4,7 +4,7 @@ HERE=$(dirname $0)
 
 PHPVER=${1}
 REPO=wearejh/ci-build-env
-SUPPORTED=(7.1 7.2 7.3)
+SUPPORTED=(7.1 7.2 7.3 7.4)
 
 if [ ${#PHPVER} -lt 1 ]; then
     echo "build.sh php-version"
