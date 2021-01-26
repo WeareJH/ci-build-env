@@ -58,13 +58,11 @@ RUN docker-php-ext-install \
     sockets
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 72 ] \
-    && docker-php-ext-install \
-        mcrypt \
+    && docker-php-ext-install mcrypt \
     ; true
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
-    && docker-php-ext-install \
-        sodium \
+    && docker-php-ext-install sodium \
     ; true
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -72,7 +70,10 @@ ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
 RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
-RUN composer global require wearejh/ci-tool:dev-master
+
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
+    && composer global require wearejh/ci-tool:dev-master \
+    ; true
 
 RUN yarn global add m2-builder@4
 
