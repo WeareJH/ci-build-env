@@ -28,6 +28,7 @@ RUN apk --update add \
     libsodium-dev \
     nodejs \
     npm \
+    oniguruma-dev \
     yarn \
     procps \
     perl-utils
