@@ -32,7 +32,7 @@ RUN apk --update add \
     procps \
     perl-utils
 
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 RUN docker-php-ext-configure zip --with-libzip=/usr/include/
 
 RUN docker-php-ext-install \
