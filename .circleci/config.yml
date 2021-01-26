@@ -5,6 +5,13 @@ jobs:
         machine: true
         steps:
             - checkout
+            - run: ./build.sh 7.4
+            - run: ./publish.sh 7.4
+
+    build-7.3:
+        machine: true
+        steps:
+            - checkout
             - run: ./build.sh 7.3
             - run: ./publish.sh 7.3
 
@@ -33,6 +40,11 @@ workflows:
                         only:
                             - master
 
+            - build-7.3:
+                  filters:
+                      branches:
+                          only:
+                              - master
             - build-7.2:
                   filters:
                       branches:
