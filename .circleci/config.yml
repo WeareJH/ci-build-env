@@ -7,6 +7,9 @@ jobs:
             - checkout
             - run: ./build.sh 7.4
             - run: ./publish.sh 7.4
+            - checkout
+            - run: ./build.sh 7.4 2
+            - run: ./publish.sh 7.4 2
 
     build-7.3:
         machine: true
