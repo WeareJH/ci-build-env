@@ -1,4 +1,4 @@
-FROM php:{{VERSION}}-cli-alpine
+FROM php:{{PHP_VERSION}}-cli-alpine
 MAINTAINER JH <hello@wearejh.com>
 
 RUN apk --update add \
@@ -68,7 +68,7 @@ RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
-RUN composer selfupdate --1
+RUN composer selfupdate --{{COMPOSER_VERSION}}
 RUN composer global require wearejh/m2-deploy-recipe:dev-master
 RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
 
