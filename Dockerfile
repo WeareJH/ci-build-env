@@ -31,7 +31,8 @@ RUN apk --update add \
     oniguruma-dev \
     yarn \
     procps \
-    perl-utils
+    perl-utils \
+    zlib
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
