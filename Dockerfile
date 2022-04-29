@@ -32,7 +32,10 @@ RUN apk --update add \
     yarn \
     procps \
     perl-utils \
-    zlib
+    zlib \
+    python2 \
+    make \
+    bash
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
@@ -70,10 +73,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
 RUN composer selfupdate --{{COMPOSER_VERSION}}
-RUN composer global require wearejh/m2-deploy-recipe:dev-master
-RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
+RUN composer config --global github-oauth.github.com {{GITHUB_TOKEN}}
 
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
+RUN composer global config minimum-stability dev
+
+RUN composer global config repositories.m2-deploy-recipe vcs git@github.com:WeareJH/m2-deploy-recipe.git
+RUN if [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 81 ] ; then \
+    composer global require wearejh/m2-deploy-recipe:^1.0; \
+  else \
+    composer global require wearejh/m2-deploy-recipe:^2.0; \
+  fi
+
+RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
+    && [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 81 ] \
     && composer global require wearejh/ci-tool:dev-master \
     ; true
 

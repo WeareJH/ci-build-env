@@ -6,7 +6,7 @@ PHPVER=${1}
 #composer version default to 1
 [[ ${#2} -lt 1 ]] && COMPOSERVER=1 || COMPOSERVER=${2}
 REPO=wearejh/ci-build-env
-SUPPORTED=(7.1 7.2 7.3 7.4)
+SUPPORTED=(7.1 7.2 7.3 7.4 8.1)
 COMPOSER_SUPPORTED=(1 2)
 
 #Check all parameters are present
@@ -36,4 +36,5 @@ docker tag ${IMAGE_URI} ${IMAGE_URI}-current
 # Set the required version in the Dockerfile
 sed -i -e "s/{{PHP_VERSION}}/${PHPVER}/g" Dockerfile
 sed -i -e "s/{{COMPOSER_VERSION}}/${COMPOSERVER}/g" Dockerfile
+sed -i -e "s/{{GITHUB_TOKEN}}/${GITHUB_TOKEN}/g" Dockerfile
 docker build --no-cache -f Dockerfile -t ${IMAGE_URI} ${HERE}
