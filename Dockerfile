@@ -33,7 +33,7 @@ RUN apk --update add \
     procps \
     perl-utils \
     zlib \
-    python2 \
+    python3 \
     make \
     bash
 
