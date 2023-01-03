@@ -17,6 +17,7 @@ RUN apk --update add \
     g++ \
     icu \
     icu-dev \
+    icu-data-full \
     libmcrypt-dev \
     libxslt-dev \
     libstdc++ \
