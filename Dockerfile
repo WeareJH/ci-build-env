@@ -91,7 +91,9 @@ RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
     && composer global require wearejh/ci-tool:dev-master \
     ; true
 
-RUN yarn global add m2-builder@4
+RUN apk add chromium
+
+RUN yarn global add m2-builder@4 lighthouse
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
