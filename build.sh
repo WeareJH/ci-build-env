@@ -6,7 +6,7 @@ PHPVER=${1}
 #composer version default to 1
 [[ ${#2} -lt 1 ]] && COMPOSERVER=1 || COMPOSERVER=${2}
 REPO=wearejh/ci-build-env
-SUPPORTED=(7.4 8.1)
+SUPPORTED=(7.4 8.1 8.2)
 COMPOSER_SUPPORTED=(1 2)
 
 #Check all parameters are present

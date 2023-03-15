@@ -36,7 +36,8 @@ RUN apk --update add \
     zlib \
     python3 \
     make \
-    bash
+    bash \
+    linux-headers
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
