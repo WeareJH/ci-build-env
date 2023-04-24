@@ -27,17 +27,15 @@ RUN apk --update add \
     ruby-json \
     ruby-bundler \
     libsodium-dev \
-    nodejs \
-    npm \
     oniguruma-dev \
-    yarn \
     procps \
     perl-utils \
     zlib \
     python3 \
     make \
     bash \
-    linux-headers
+    linux-headers \
+    coreutils
 
 RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
     && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
@@ -92,9 +90,23 @@ RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
     && composer global require wearejh/ci-tool:dev-master \
     ; true
 
+# Install NVM and multiple versions of Node
+RUN touch ~/.profile && chmod +x ~/.profile
+RUN echo 'export NVM_NODEJS_ORG_MIRROR=https://unofficial-builds.nodejs.org/download/release;' >> $HOME/.profile; \
+    echo 'export NVM_DIR="$HOME/.nvm";' >> $HOME/.profile; \
+    echo 'nvm_get_arch() { nvm_echo "x64-musl"; }' >> $HOME/.profile;
+RUN source ~/.profile; curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
+RUN echo 'nvm_get_arch() { nvm_echo "x64-musl"; }' >> $HOME/.nvm/nvm.sh;
+RUN source ~/.profile; . ~/.nvm/nvm.sh
+RUN source ~/.profile && nvm install 16 && nvm install 18 && nvm install 20 && nvm alias default 16;
+RUN source ~/.profile && nvm use default && npm install --global yarn
+RUN echo 'source $HOME/.profile;' > $HOME/.ashrc;
+ENV ENV="/root/.ashrc"
+# End of install NVM
+
 RUN apk add chromium
 
-RUN yarn global add m2-builder@4 lighthouse
+RUN source ~/.profile && yarn global add m2-builder@4 lighthouse
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
