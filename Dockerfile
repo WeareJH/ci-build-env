@@ -106,7 +106,7 @@ ENV ENV="/root/.ashrc"
 
 RUN apk add chromium
 
-RUN source ~/.profile && yarn global add m2-builder@4 lighthouse
+RUN source ~/.profile && yarn global add m2-builder@4
 
 RUN mkdir -p /root/build
 WORKDIR /root/build

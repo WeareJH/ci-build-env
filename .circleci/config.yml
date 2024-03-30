@@ -5,9 +5,14 @@ jobs:
         machine: true
         steps:
             - checkout
+            - run: ./build.sh 8.3 2
+            - run: ./publish.sh 8.3 2
+    build-8.2:
+        machine: true
+        steps:
+            - checkout
             - run: ./build.sh 8.2 2
             - run: ./publish.sh 8.2 2
-
     build-8.1:
         machine: true
         steps:
@@ -40,6 +45,11 @@ workflows:
                           only:
                               - master
             - build-8.1:
+                  filters:
+                      branches:
+                          only:
+                              - master
+            - build-8.2:
                   filters:
                       branches:
                           only:
