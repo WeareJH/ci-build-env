@@ -33,4 +33,3 @@ docker run --rm -it wearejh/ci-build-env:{VERSION} sh
 # Replace {VERSION} with the required PHP version to build
 ./build.sh {VERSION}
 ```
-
