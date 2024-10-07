@@ -17,8 +17,8 @@ jobs:
         machine: true
         steps:
             - checkout
-            - run: ./build.sh 8.1 2
-            - run: ./publish.sh 8.1 2
+            - run: ./build.sh 8.1 2.2
+            - run: ./publish.sh 8.1 2.2
     build-7.4:
         machine: true
         steps:
