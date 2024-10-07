@@ -7,7 +7,7 @@ PHPVER=${1}
 [[ ${#2} -lt 1 ]] && COMPOSERVER=1 || COMPOSERVER=${2}
 REPO=wearejh/ci-build-env
 SUPPORTED=(7.4 8.1 8.2 8.3)
-COMPOSER_SUPPORTED=(1 2)
+COMPOSER_SUPPORTED=(1 2 2.2)
 IMAGEVER=$(date '+%Y%m%d%H%M')
 
 #Check all parameters are present
