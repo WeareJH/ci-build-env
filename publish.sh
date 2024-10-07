@@ -26,7 +26,7 @@ if [[ ! " ${COMPOSER_SUPPORTED[@]} " =~ " ${COMPOSERVER} " ]]; then
     exit
 fi
 #construct docker image URI
-[[ $COMPOSERVER -ge 2 ]] && COMP_SUFFIX="-comp2" || COMP_SUFFIX=""
+COMP_SUFFIX="-comp2"
 IMAGE_URI=${REPO}:${PHPVER}${COMP_SUFFIX}
 #create a tag containing the current time suffix
 #so that it is possible to target a specific build

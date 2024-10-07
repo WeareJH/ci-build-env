@@ -26,7 +26,7 @@ if [[ ! " ${COMPOSER_SUPPORTED[@]} " =~ " ${COMPOSERVER} " ]]; then
 fi
 
 # Pull current build for comparison before publish
-[[ $COMPOSERVER -ge 2 ]] && COMP_SUFFIX="-comp2" || COMP_SUFFIX=""
+COMP_SUFFIX="-comp2"
 IMAGE_URI=${REPO}:${PHPVER}${COMP_SUFFIX}
 
 docker pull ${IMAGE_URI}
