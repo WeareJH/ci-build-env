@@ -68,6 +68,10 @@ RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
     && docker-php-ext-install sodium \
     ; true
 
+RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 83 ] \
+    && docker-php-ext-install ftp\
+    ; true
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH=/root/.composer/vendor/bin:$PATH
 
