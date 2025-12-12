@@ -24,7 +24,6 @@ RUN apk --update add \
     libgcc \
     libzip-dev \
     ruby \
-    ruby-json \
     ruby-bundler \
     libsodium-dev \
     oniguruma-dev \
