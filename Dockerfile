@@ -85,7 +85,7 @@ RUN composer global config repositories.m2-deploy-recipe vcs git@github.com:Wear
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 81 ] ; then \
     composer global require wearejh/m2-deploy-recipe:^1.0; \
   elif [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -eq 83 ] ; then \
-    composer global require wearejh/m2-deploy-recipe:^2.2; \
+    composer global require wearejh/m2-deploy-recipe:dev-master#57836741ccd74f0575a60ea4dc3de8fbb2548466; \
   else \
     composer global require wearejh/m2-deploy-recipe:^2.0; \
   fi
