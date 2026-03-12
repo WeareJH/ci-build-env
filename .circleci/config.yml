@@ -1,56 +1,19 @@
 version: 2
 jobs:
-    # Latest build
-    build:
+    build-8.4:
         machine: true
         steps:
             - checkout
-            - run: ./build.sh 8.3 2
-            - run: ./publish.sh 8.3 2
-    build-8.2:
-        machine: true
-        steps:
-            - checkout
-            - run: ./build.sh 8.2 2
-            - run: ./publish.sh 8.2 2
-    build-8.1:
-        machine: true
-        steps:
-            - checkout
-            - run: ./build.sh 8.1 2.2
-            - run: ./publish.sh 8.1 2.2
-    build-7.4:
-        machine: true
-        steps:
-            - checkout
-            - run: ./build.sh 7.4
-            - run: ./publish.sh 7.4
-            - checkout
-            - run: ./build.sh 7.4 2
-            - run: ./publish.sh 7.4 2
+            - run: ./build.sh
+            - run: ./publish.sh
 
 workflows:
     version: 2
 
     build_versions:
         jobs:
-            - build:
+            - build-8.4:
                 filters:
                     branches:
                         only:
-                            - master
-            - build-7.4:
-                  filters:
-                      branches:
-                          only:
-                              - master
-            - build-8.1:
-                  filters:
-                      branches:
-                          only:
-                              - master
-            - build-8.2:
-                  filters:
-                      branches:
-                          only:
-                              - master
+                            - php84

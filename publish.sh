@@ -1,35 +1,11 @@
 #!/bin/bash
 
-HERE=$(dirname $0)
-
-PHPVER=${1}
-#composer version default to 1
-[[ ${#2} -lt 1 ]] && COMPOSERVER=1 || COMPOSERVER=${2}
 REPO=wearejh/ci-build-env
-SUPPORTED=(7.4 8.1 8.2 8.3)
-COMPOSER_SUPPORTED=(1 2 2.2)
+IMAGE_URI=${REPO}:8.4-comp2
 IMAGEVER=$(date '+%Y%m%d%H%M')
 
-#Check all parameters are present
-if [ ${#PHPVER} -lt 1 ] || [ ${#COMPOSERVER} -lt 1 ]; then
-    echo "build.sh php-version composer-version"
-    exit
-fi
-#Check PHP version supplied is supported
-if [[ ! " ${SUPPORTED[@]} " =~ " ${PHPVER} " ]]; then
-    echo "PHP version ${PHPVER} not supported"
-    exit
-fi
-#Check Composer version supplied is supported
-if [[ ! " ${COMPOSER_SUPPORTED[@]} " =~ " ${COMPOSERVER} " ]]; then
-    echo "Composer version ${COMPOSERVER} not supported"
-    exit
-fi
-#construct docker image URI
-COMP_SUFFIX="-comp2"
-IMAGE_URI=${REPO}:${PHPVER}${COMP_SUFFIX}
-#create a tag containing the current time suffix
-#so that it is possible to target a specific build
+# Create a tag containing the current time suffix
+# so that it is possible to target a specific build
 docker tag $IMAGE_URI $IMAGE_URI-$IMAGEVER
 
 # Compare image to current before push
@@ -41,6 +17,6 @@ if [ -z "${LAYER_DIFF}" ]; then
 fi
 
 docker login -u $DOCKER_USER -p $DOCKER_PASS
-#Push both tags for this image, one generic and one tied to this specific timestamp.
+# Push both tags for this image, one generic and one tied to this specific timestamp.
 docker push $IMAGE_URI
 docker push $IMAGE_URI-$IMAGEVER

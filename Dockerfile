@@ -18,7 +18,6 @@ RUN apk --update add \
     icu \
     icu-dev \
     icu-data-full \
-    libmcrypt-dev \
     libxslt-dev \
     libstdc++ \
     libgcc \
@@ -36,15 +35,8 @@ RUN apk --update add \
     linux-headers \
     coreutils
 
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 74 ] \
-    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
-    && docker-php-ext-configure zip --with-libzip=/usr/include/ \
-    ; true
-
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
-    && docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
-    && docker-php-ext-configure zip \
-    ; true
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
+    && docker-php-ext-configure zip
 
 RUN docker-php-ext-install \
     gd \
@@ -58,19 +50,9 @@ RUN docker-php-ext-install \
     mysqli \
     opcache \
     pcntl \
-    sockets
-
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 72 ] \
-    && docker-php-ext-install mcrypt \
-    ; true
-
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 72 ] \
-    && docker-php-ext-install sodium \
-    ; true
-
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 83 ] \
-    && docker-php-ext-install ftp\
-    ; true
+    sockets \
+    sodium \
+    ftp
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH=/root/.composer/vendor/bin:$PATH
@@ -82,20 +64,7 @@ RUN composer global config minimum-stability dev
 
 RUN composer global config repositories.m2-deploy-recipe vcs git@github.com:WeareJH/m2-deploy-recipe.git
 
-RUN if [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 81 ] ; then \
-    composer global require wearejh/m2-deploy-recipe:^1.0; \
-  elif [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -eq 83 ] ; then \
-    composer global require wearejh/m2-deploy-recipe:dev-main; \
-  else \
-    composer global require wearejh/m2-deploy-recipe:^2.0; \
-  fi
-RUN echo 'composer show -i wearejh/m2-deploy-recipe'
-
-RUN composer global config repositories.ci-tool vcs git@github.com:WeareJH/ci-tool.git
-RUN [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -ge 74 ] \
-    && [ $(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") -lt 81 ] \
-    && composer global require wearejh/ci-tool:dev-master \
-    ; true
+RUN composer global require wearejh/m2-deploy-recipe:^3.0
 
 # Install NVM and multiple versions of Node
 RUN touch ~/.profile && chmod +x ~/.profile
@@ -105,15 +74,25 @@ RUN echo 'export NVM_NODEJS_ORG_MIRROR=https://unofficial-builds.nodejs.org/down
 RUN source ~/.profile; curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
 RUN echo 'nvm_get_arch() { nvm_echo "x64-musl"; }' >> $HOME/.nvm/nvm.sh;
 RUN source ~/.profile; . ~/.nvm/nvm.sh
-RUN source ~/.profile && nvm install 16 && nvm install 18 && nvm install 20 && nvm alias default 16;
+RUN source ~/.profile && nvm install 18 && nvm install 20 && nvm install 22 && nvm alias default 20;
 RUN source ~/.profile && nvm use default && npm install --global yarn
 RUN echo 'source $HOME/.profile;' > $HOME/.ashrc;
 ENV ENV="/root/.ashrc"
+# Symlink node/npm/npx to /usr/local/bin for non-interactive shell access
+RUN source ~/.profile && ln -sf $(which node) /usr/local/bin/node \
+    && ln -sf $(which npm) /usr/local/bin/npm \
+    && ln -sf $(which npx) /usr/local/bin/npx
 # End of install NVM
 
 RUN apk add chromium
 
 RUN source ~/.profile && yarn global add m2-builder@4
+
+# Install elgentos static-deploy binary
+RUN ARCH=$(uname -m | sed 's/x86_64/amd64/') && \
+    curl -sL -o /usr/local/bin/static-deploy \
+    "https://github.com/elgentos/magento2-static-deploy/releases/latest/download/magento2-static-deploy-linux-${ARCH}" && \
+    chmod +x /usr/local/bin/static-deploy || true
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
