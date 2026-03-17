@@ -33,7 +33,8 @@ RUN apk --update add \
     make \
     bash \
     linux-headers \
-    coreutils
+    coreutils \
+    gcompat
 
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
     && docker-php-ext-configure zip
