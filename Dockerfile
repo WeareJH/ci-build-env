@@ -65,10 +65,13 @@ RUN composer config --global github-oauth.github.com {{GITHUB_TOKEN}}
 RUN composer global config minimum-stability dev
 
 RUN composer global config repositories.m2-deploy-recipe vcs git@github.com:WeareJH/m2-deploy-recipe.git
-RUN composer global config allow-plugins.cweagans/composer-patches true
-RUN composer global config allow-plugins.cweagans/composer-configurable-plugin true
 
 RUN composer global require wearejh/m2-deploy-recipe:^3.0
+
+# Fix Deployer 8.x "Malformed request line" race condition on non-blocking sockets
+# See: https://github.com/deployphp/deployer/discussions/4047
+RUN patch -p1 -d /root/.composer/vendor/deployer/deployer < \
+    /root/.composer/vendor/wearejh/m2-deploy-recipe/patches/deployer-fix-malformed-request.patch
 
 # Install NVM and multiple versions of Node
 RUN touch ~/.profile && chmod +x ~/.profile
