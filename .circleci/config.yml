@@ -1,6 +1,6 @@
 version: 2
 jobs:
-    build-8.4:
+    build-8.5:
         machine: true
         steps:
             - checkout
@@ -12,8 +12,8 @@ workflows:
 
     build_versions:
         jobs:
-            - build-8.4:
+            - build-8.5:
                 filters:
                     branches:
                         only:
-                            - php84
+                            - php85

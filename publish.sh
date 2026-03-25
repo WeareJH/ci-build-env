@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPO=wearejh/ci-build-env
-IMAGE_URI=${REPO}:8.4-comp2
+IMAGE_URI=${REPO}:8.5-comp2
 IMAGEVER=$(date '+%Y%m%d%H%M')
 
 # Create a tag containing the current time suffix
