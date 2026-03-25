@@ -43,17 +43,14 @@ RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/i
 RUN docker-php-ext-install \
     gd \
     intl \
-    mbstring \
     pdo_mysql \
     xsl \
     zip \
     soap \
     bcmath \
     mysqli \
-    opcache \
     pcntl \
     sockets \
-    sodium \
     ftp
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -81,7 +78,7 @@ RUN echo 'export NVM_NODEJS_ORG_MIRROR=https://unofficial-builds.nodejs.org/down
 RUN source ~/.profile; curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash;
 RUN echo 'nvm_get_arch() { nvm_echo "x64-musl"; }' >> $HOME/.nvm/nvm.sh;
 RUN source ~/.profile; . ~/.nvm/nvm.sh
-RUN source ~/.profile && nvm install 18 && nvm install 20 && nvm install 22 && nvm alias default 20;
+RUN source ~/.profile && nvm install 24 && nvm alias default 24;
 RUN source ~/.profile && nvm use default && npm install --global yarn
 RUN echo 'source $HOME/.profile;' > $HOME/.ashrc;
 ENV ENV="/root/.ashrc"
