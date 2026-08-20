@@ -60,15 +60,16 @@ RUN composer selfupdate --{{COMPOSER_VERSION}}
 RUN composer config --global github-oauth.github.com {{GITHUB_TOKEN}}
 
 RUN composer global config minimum-stability dev
+# With minimum-stability dev, composer may resolve deployer/deployer to a dev
+# branch alias instead of a tagged release - prefer stable releases.
+RUN composer global config prefer-stable true
 
 RUN composer global config repositories.m2-deploy-recipe vcs git@github.com:WeareJH/m2-deploy-recipe.git
 
-RUN composer global require wearejh/m2-deploy-recipe:^3.0
-
-# Fix Deployer 8.x "Malformed request line" race condition on non-blocking sockets
-# See: https://github.com/deployphp/deployer/discussions/4047
-RUN patch -p1 -d /root/.composer/vendor/deployer/deployer < \
-    /root/.composer/vendor/wearejh/m2-deploy-recipe/patches/deployer-fix-malformed-request.patch
+# deployer >= 8.0.5 required: 8.0.0-rc had the "Malformed request line" IPC
+# race (deployphp/deployer discussion #4047), previously worked around with a
+# local patch. Fixed upstream in 8.0.5, where the patch no longer applies.
+RUN composer global require deployer/deployer:^8.0.5 wearejh/m2-deploy-recipe:^3.0
 
 # Install NVM and multiple versions of Node
 RUN touch ~/.profile && chmod +x ~/.profile
