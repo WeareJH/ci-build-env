@@ -92,11 +92,17 @@ RUN apk add chromium
 
 RUN source ~/.profile && yarn global add m2-builder@4
 
-# Install elgentos static-deploy binary
+# Install elgentos static-deploy binary.
+# Pinned, not releases/latest: with latest, the version baked into the image
+# is whatever happened to be newest at image build time, so builds are not
+# reproducible and behaviour changes invisibly between image rebuilds.
+# Requires >= 0.1.0: earlier versions only scan vendor/, silently omitting
+# app/code module web assets from pub/static.
 RUN ARCH=$(uname -m | sed 's/x86_64/amd64/') && \
-    curl -sL -o /usr/local/bin/static-deploy \
-    "https://github.com/elgentos/magento2-static-deploy/releases/latest/download/magento2-static-deploy-linux-${ARCH}" && \
-    chmod +x /usr/local/bin/static-deploy || true
+    curl -fsSL -o /usr/local/bin/static-deploy \
+    "https://github.com/elgentos/magento2-static-deploy/releases/download/0.1.1/magento2-static-deploy-linux-${ARCH}" && \
+    chmod +x /usr/local/bin/static-deploy && \
+    (static-deploy --help 2>&1 || true) | grep -q Usage
 
 RUN mkdir -p /root/build
 WORKDIR /root/build
